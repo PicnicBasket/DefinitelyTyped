@@ -532,14 +532,14 @@ declare module ng {
         // XXX it has it's own structure...  perhaps we should define it in the future
         headers?: any;
 
-        cache?: any;
-        timeout?: number;
+        cache?: any;        
         withCredentials?: boolean;
 
         // These accept multiple types, so let's defile them as any
         data?: any;
         transformRequest?: any;
         transformResponse?: any;
+        timeout?: any; // number | promise
     }
 
     interface IHttpPromiseCallback<T> {
