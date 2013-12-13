@@ -7,8 +7,8 @@
 interface VideoJSOptions {
 	techOrder?: string[];
 	html5?: Object;
-	width?: number;
-	height?: number;
+	width?: any;
+	height?: any;
 	defaultVolume?: number;
 	children?: Object;
 }
@@ -19,29 +19,31 @@ interface VideoJSSource {
 }
 
 interface VideoJSPlayer {
-	play(): VideoJSPlayer;
-	pause(): VideoJSPlayer;
-	paused(): boolean;
-	src(newSource: string): VideoJSPlayer;
-	src(newSource: VideoJSSource): VideoJSPlayer;
-	src(newSource: VideoJSSource[]): VideoJSPlayer;
-	currentTime(seconds: number): VideoJSPlayer;
-	currentTime(): number;
-	duration(): number;
-	buffered(): TimeRanges;
-	bufferedPercent(): number;	
-	volume(percentAsDecimal: number): TimeRanges;
-	volume(): number;
-	width(): number;	
-	width(pixels: number): VideoJSPlayer;
-	height(): number;
-	height(pixels: number): VideoJSPlayer;
-	size(width: number, height: number): VideoJSPlayer;
-	requestFullScreen(): VideoJSPlayer;
-	cancelFullScreen(): VideoJSPlayer;
-	ready(callback: () => void ): void;
-	on(eventName: string, callback: () => void ): void;
-	off(eventName: string, callback: () => void ): void;
+    play(): VideoJSPlayer;
+    pause(): VideoJSPlayer;
+    paused(): boolean;
+    src(newSource: string): VideoJSPlayer;
+    src(newSource: VideoJSSource): VideoJSPlayer;
+    src(newSource: VideoJSSource[]): VideoJSPlayer;
+    currentTime(seconds: number): VideoJSPlayer;
+    currentTime(): number;
+    duration(): number;
+    buffered(): TimeRanges;
+    bufferedPercent(): number;
+    volume(percentAsDecimal: number): TimeRanges;
+    volume(): number;
+    width(): number;
+    width(pixels: number): VideoJSPlayer;
+    height(): number;
+    height(pixels: number): VideoJSPlayer;
+    size(width: number, height: number): VideoJSPlayer;
+    requestFullScreen(): VideoJSPlayer;
+    cancelFullScreen(): VideoJSPlayer;
+    ready(callback: () => void): void;
+    on(eventName: string, callback: () => void): void;
+    off(eventName: string, callback: () => void): void;
+    dispose(): any;
+    load(): VideoJSPlayer;
 }
 
 interface VideoJSStatic {
