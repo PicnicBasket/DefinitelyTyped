@@ -161,7 +161,7 @@ function test_ajaxComplete() {
     });
     $('.log').ajaxComplete(function (e, xhr, settings) {
         if (settings.url == 'ajax/test.html') {
-            $(this).text('Triggered ajaxComplete handler. The result is ' + xhr.responseHTML);
+            $(this).text('Triggered ajaxComplete handler. The result is ' + xhr.responseText);
         }
     });
     $("#msg").ajaxComplete(function (event, request, settings) {
@@ -410,6 +410,49 @@ function test_animatedSelector() {
     animateIt();
 }
 
+function test_slideToggle() {
+    $("button").click(function () {
+        $("p").slideToggle("slow");
+    });
+
+    $("#aa").click(function () {
+        $("div:not(.still)").slideToggle("slow", function () {
+            var n = parseInt($("span").text(), 10);
+            $("span").text(n + 1);
+        });
+    });
+}
+
+function test_toggle() {
+    $(".target").toggle();
+
+    $("#clickme").click(function () {
+        $("#book").toggle("slow", function () {
+            // Animation complete.
+        });
+    });
+
+    $("#foo").toggle(true);
+
+    $("button").click(function () {
+        $("p").toggle();
+    });
+
+    $("button").click(function () {
+        $("p").toggle("slow");
+    });
+
+    var flip = 0;
+    $("button").click(function () {
+        $("p").toggle(flip++ % 2 === 0);
+    });
+}
+
+function test_easing() {
+    var result: number = $.easing.linear(3);
+    var result: number = $.easing.swing(3);
+}
+
 function test_append() {
     $('.inner').append('<p>Test</p>');
     $('.container').append($('h2'));
@@ -646,6 +689,7 @@ function test_change() {
         $('.target').change();
     });
     $("input[type='text']").change(function () { });
+    $("input[type='text']").change();
 }
 
 function test_children() {
@@ -701,6 +745,13 @@ function test_click() {
         $(this).slideUp();
     });
     $("p").click();
+}
+
+function test_submit() {
+    $("#target").submit(function () {
+        alert("Handler for .submit() called.");
+    });
+    $("#target").submit();
 }
 
 function test_clone() {
@@ -881,6 +932,18 @@ function test_data() {
     jQuery.data(div, "test", { first: 16, last: "pizza!" });
     $("span:first").text(jQuery.data(div, "test").first);
     $("span:last").text(jQuery.data(div, "test").last);
+    $.data(document.getElementById("id"), "", 8).toFixed(2);
+    $.data(document.getElementById("id"), "", "8").toUpperCase();
+}
+
+function test_removeData() {
+    $("span:eq(0)").text("" + $("div").data("test1"));
+    $("div").data("test1", "VALUE-1");
+    $("div").data("test2", "VALUE-2");
+    $("span:eq(1)").text("" + $("div").data("test1"));
+    $("div").removeData("test1");
+    $("span:eq(2)").text("" + $("div").data("test1"));
+    $("span:eq(3)").text("" + $("div").data("test2"));
 }
 
 function test_dblclick() {
@@ -895,9 +958,22 @@ function test_dblclick() {
     divdbl.dblclick(function () {
         divdbl.toggleClass('dbl');
     });
+	$('#target').dblclick();
 }
 
 function test_deferred() {
+
+    function returnPromise(): JQueryPromise<(data: { MyString: string; MyNumber: number; }, textStatus: string, jqXHR: JQueryXHR) => any> {
+        return $.ajax("test.php");
+    }
+    var x = returnPromise();
+    x.done((data, textStatus, jqXHR) => {
+        var myNumber: number = data.MyNumber;
+        var myString: string = data.MyString;
+        var theTextStatus: string = textStatus;
+        var thejqXHR: JQueryXHR = jqXHR;
+    });
+
     $.get("test.php").always(function () {
         alert("$.get completed with success or error callback arguments");
     });
@@ -940,8 +1016,7 @@ function test_deferred() {
     filtered.done(function (data) { });
 
     function asyncEvent() {
-        var newDeferred = new jQuery.Deferred();
-        var dfd: JQueryDeferred;
+        var dfd: JQueryDeferred<string> = $.Deferred<string>();
         setTimeout(function () {
             dfd.resolve("hurray");
         }, Math.floor(400 + Math.random() * 2000));
@@ -1061,6 +1136,9 @@ function test_each() {
     $.each({ name: "John", lang: "JS" }, function (k, v) {
         alert("Key: " + k + ", Value: " + v);
     });
+    $.each([{a: 1}, {a: 2}, {a: 3}], function (i, o) {
+        alert("Index #" + i + ": " + o.a);
+    });
     $('li').each(function (index) {
         alert(index + ': ' + $(this).text());
     });
@@ -1122,7 +1200,9 @@ function test_error() {
             $(this).hide();
         })
         .attr("src", "missing.png");
-    jQuery.error = console.error;
+    jQuery.error = (message?: string) => {
+        console.error(message); return this;
+    }
 }
 
 function test_eventParams() {
@@ -1237,7 +1317,7 @@ function test_extend() {
 
     var defaults = { validate: false, limit: 5, name: "foo" };
     var options = { validate: true, name: "bar" };
-    var settings = $.extend({}, defaults, options);
+    var settings: typeof defaults = $.extend({}, defaults, options);
 }
 
 function test_fadeIn() {
@@ -1550,11 +1630,12 @@ function test_grep() {
         return (n != 5 && i > 4);
     });
     $("p").text(arr.join(", "));
-    arr = jQuery.grep(arr, function (a) { return a != 9; });
+    var arr2 = jQuery.grep(arr, function (a) { return a != 9; });
     $("span").text(arr.join(", "));
     $.grep([0, 1, 2], function (n, i) {
         return n > 0;
     }, true);
+    var arr3 = $.grep(["a", "b", "c"], function (n, i) { return n !== "b"; });
 }
 
 function test_has() {
@@ -1569,7 +1650,7 @@ function test_hasClass() {
     $("div#result3").append($("p").hasClass("selected"));
 
     $('#mydiv').hasClass('foo');
-    // typescript has a bug to (bool).toString() - I'll comment this code until typescript team solve this problem.
+    // typescript has a bug to (boolean).toString() - I'll comment this code until typescript team solve this problem.
     //$("div#result1").append($("p:first").hasClass("selected").toString());
     //$("div#result2").append($("p:last").hasClass("selected").toString());
     //$("div#result3").append($("p").hasClass("selected").toString());
@@ -1607,6 +1688,48 @@ function test_height() {
         $(this).height(30)
                .css({ cursor: "auto", backgroundColor: "green" });
     });
+}
+
+function test_width() {
+    // Returns width of browser viewport
+    $(window).width();
+
+    // Returns width of HTML document
+    $(document).width();
+
+    function showWidth(ele, w) {
+        $("div").text("The width for the " + ele + " is " + w + "px.");
+    }
+    $("#getp").click(function () {
+        showWidth("paragraph", $("p").width());
+    });
+    $("#getd").click(function () {
+        showWidth("document", $(document).width());
+    });
+    $("#getw").click(function () {
+        showWidth("window", $(window).width());
+    });
+
+    var modWidth = 50;
+    $("div").one("click", function () {
+        $(this).width(modWidth).addClass("mod");
+        modWidth -= 8;
+    });
+}
+
+function test_coordinates() {
+    var p = $("p:last");
+    var offset = p.offset();
+    p.html("left: " + offset.left + ", top: " + offset.top);
+
+    $("*", document.body).click(function (event) {
+        var offset = $(this).offset();
+        event.stopPropagation();
+        $("#result").text(this.tagName +
+            " coords ( " + offset.left + ", " + offset.top + " )");
+    });
+
+    $("p:last").offset({ top: 10, left: 30 });
 }
 
 function test_hide() {
@@ -1677,7 +1800,7 @@ function test_html() {
     });
     $('div.demo-container')
         .html('<p>All new content. <em>You bet!</em></p>');
-    $('div.demo-container').html(function () {
+    $('div.demo-container').html(function (index, oldhtml) {
         var emph = '<em>' + $('p').length + ' paragraphs!</em>';
         return '<p>All new content for ' + emph + '</p>';
     });
@@ -1693,6 +1816,9 @@ function test_inArray() {
     $spans.eq(1).text(jQuery.inArray(4, arr));
     $spans.eq(2).text(jQuery.inArray("Karl", arr));
     $spans.eq(3).text(jQuery.inArray("Pete", arr, 2));
+
+    var arr2: number[] = [1, 2, 3, 4];
+    $spans.eq(1).text(jQuery.inArray(4, arr2));
 }
 
 function test_index() {
@@ -1712,7 +1838,7 @@ function test_index() {
     $('div').html('Index: ' + foobar);
 }
 
-function test_innedHeight() {
+function test_innerHeight() {
     var p = $("p:first");
     $("p:last").text("innerHeight:" + p.innerHeight());
 }
@@ -1720,6 +1846,40 @@ function test_innedHeight() {
 function test_innerWidth() {
     var p = $("p:first");
     $("p:last").text("innerWidth:" + p.innerWidth());
+}
+
+function test_outerHeight() {
+    var p = $("p:first");
+    $("p:last").text(
+        "outerHeight:" + p.outerHeight() +
+        " , outerHeight( true ):" + p.outerHeight(true));
+}
+
+function test_outerWidth() {
+    var p = $("p:first");
+    $("p:last").text(
+        "outerWidth:" + p.outerWidth() +
+        " , outerWidth( true ):" + p.outerWidth(true));
+}
+
+function test_scrollLeft() {
+    var p = $("p:first");
+    $("p:last").text("scrollLeft:" + p.scrollLeft());
+
+    $("div.demo").scrollLeft(300);
+}
+
+function test_scrollTop() {
+    var p = $("p:first");
+    $("p:last").text("scrollTop:" + p.scrollTop());
+
+    $("div.demo").scrollTop(300);
+}
+
+function test_position() {
+    var p = $("p:first");
+    var position = p.position();
+    $("p:last").text("left: " + position.left + ", top: " + position.top);
 }
 
 function test_insertAfter() {
@@ -1732,6 +1892,39 @@ function test_insertBefore() {
     $('<p>Test</p>').insertBefore('.inner');
     $('h2').insertBefore($('.container'));
     $("p").insertBefore("#foo");
+}
+
+function test_promise() {
+    var div = $("<div>");
+
+    div.promise().done(function (arg1) {
+        // Will fire right away and alert "true"
+        alert(this === div && arg1 === div);
+    });
+
+    $("button").on("click", function () {
+        $("p").append("Started...");
+
+        $("div").each(function (i) {
+            $(this).fadeIn().fadeOut(1000 * (i + 1));
+        });
+
+        $("div").promise().done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
+
+    var effect = function () {
+        return $("div").fadeIn(800).delay(1200).fadeOut();
+    };
+
+    $("button").on("click", function () {
+        $("p").append(" Started... ");
+
+        $.when(effect()).done(function () {
+            $("p").append(" Finished! ");
+        });
+    });
 }
 
 function test_is() {
@@ -1953,6 +2146,36 @@ function test_keyup() {
     });
     $('#other').click(function () {
         $('#target').keyup();
+    });
+}
+
+function test_resize() {
+	$('#other').resize();
+    $('#other').resize(function () {
+        alert('Handler for .resize() called.');
+    });
+    $('#other').resize({ "event": "Data" }, function () {
+        alert('Handler for .resize() called.');
+    });
+}
+
+function test_scroll() {
+	$('#other').scroll();
+    $('#other').scroll(function () {
+        alert('Handler for .scroll() called.');
+    });
+    $('#other').scroll({ "event": "Data" }, function () {
+        alert('Handler for .scroll() called.');
+    });
+}
+
+function test_select() {
+	$('#other').select();
+    $('#other').select(function () {
+        alert('Handler for .select() called.');
+    });
+    $('#other').select({ "event": "Data" }, function () {
+        alert('Handler for .select() called.');
     });
 }
 
@@ -2195,7 +2418,7 @@ function test_map() {
         return (a > 50 ? a - 45 : null);
     });
     var array = [0, 1, 52, 97];
-    array = $.map(array, function (a, index) {
+    var array2 = $.map(array, function (a, index) {
         return [a - 45, index];
     });
 }
@@ -2207,6 +2430,7 @@ function test_merge() {
     var first = ['a', 'b', 'c'];
     var second = ['d', 'e', 'f'];
     $.merge($.merge([], first), second);
+    var z = $.merge([0, 1, 2], ['a', 'b', 'c']);
 }
 
 function test_prop() {
@@ -2226,6 +2450,56 @@ function test_prop() {
     var title: string = $('option:selected', this).prop('title');
 }
 
+function test_val() {
+    // Get the value from a dropdown select
+    $("select.foo option:selected").val();
+
+    // Get the value from a dropdown select even easier
+    $("select.foo").val();
+
+    // Get the value from a checked checkbox
+    $("input:checkbox:checked").val();
+
+    // Get the value from a set of radio buttons
+    $("input:radio[name=bar]:checked").val();
+
+    function displayVals() {
+        var singleValues = $("#single").val();
+        var multipleValues = $("#multiple").val() || [];
+        $("p").html("<b>Single:</b> " + singleValues +
+            " <b>Multiple:</b> " + multipleValues.join(", "));
+    }
+
+    $("select").change(displayVals);
+    displayVals();
+
+
+    $("input")
+        .keyup(function () {
+            var value = $(this).val();
+            $("p").text(value);
+        })
+        .keyup();
+
+    $("input:text.items").val(function (index, value) {
+        return value + " " + this.className;
+    });
+
+    $("button").click(function () {
+        var text = $(this).text();
+        $("input").val(text);
+    });
+
+    $("input").on("blur", function () {
+        $(this).val(function (i, val) {
+            return val.toUpperCase();
+        });
+    });
+
+    $("#single").val("Single2");
+    $("#multiple").val(["Multiple2", "Multiple3"]);
+    $("input").val(["check1", "check2", "radio1"]);
+}
 
 function test_selector() {
   var $main = $('#main');
@@ -2265,15 +2539,15 @@ function test_parseHTML() {
 		str = "hello, <b>my name is</b> jQuery.",
 		html = $.parseHTML( str ),
 		nodeNames = [];
-	 
+
 	// Append the parsed HTML
 	$log.append( html );
-	 
+
 	// Gather the parsed HTML's node names
 	$.each( html, function( i, el ) {
 		nodeNames[i] = "<li>" + el.nodeName + "</li>";
 	});
-	 
+
 	// Insert the node names
 	$log.append( "<h3>Node Names:</h3>" );
 	$( "<ol></ol>" )
@@ -2288,3 +2562,25 @@ function test_EventIsNewable() {
 function test_EventIsCallable() {
     var ev = jQuery.Event('click');
 }
+
+$.when<any>($.ajax("/my/page.json")).then(a => a.asdf); // is type JQueryPromise<any>
+$.when($.ajax("/my/page.json")).then((a?,b?,c?) => a.asdf); // is type JQueryPromise<any>
+$.when("asdf", "jkl;").done((x,y) => x.length + y.length, (x,y) => x.length + y.length);
+
+var f1 = $.when("fetch"); // Is type JQueryPromise<string>
+var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
+var f3: JQueryPromise<number> = f2.then(v => 3);
+
+// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/742
+// http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
+$.ajax({
+    url: 'php/upload.php',
+    data: {},
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST',
+    success: function (data) {
+        alert(data);
+    }
+});
