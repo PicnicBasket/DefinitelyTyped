@@ -164,6 +164,7 @@ declare module createjs {
         reduceRight(callbackfn: (previousValue: number, currentValue: number, currentIndex: number, array: number[]) => number, initialValue?: number): number;
         reduceRight<ColorMatrix>(callbackfn: (previousValue: ColorMatrix, currentValue: number, currentIndex: number, array: number[]) => ColorMatrix, initialValue: ColorMatrix): ColorMatrix;
         length: number;
+        [n:number]: number;
         // implements Array interface end
     }
     
