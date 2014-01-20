@@ -163,8 +163,8 @@ declare module ng {
         $valid: boolean;
         $invalid: boolean;
         $error: any;
-        $addControl(control: ng.INgModelController): void;
-        $removeControl(control: ng.INgModelController): void;
+        $addControl(control: ng.INgModelController<any>): void;
+        $removeControl(control: ng.INgModelController<any>): void;
         $setDirty(): void;
         $setPristine(): void;
     }
@@ -173,15 +173,15 @@ declare module ng {
     // NgModelController
     // see http://docs.angularjs.org/api/ng.directive:ngModel.NgModelController
     ///////////////////////////////////////////////////////////////////////////
-    interface INgModelController {
+    interface INgModelController<T> {
         $render(): void;
         $setValidity(validationErrorKey: string, isValid: boolean): void;
         // Documentation states viewValue and modelValue to be a string but other
         // types do work and it's common to use them.
-        $setViewValue(value: any): void;
-        $viewValue: any;
+        $setViewValue(value: T): void;
+        $viewValue: T;
 
-        $modelValue: any;
+        $modelValue: T;
 
         $parsers: IModelParser[];
         $formatters: IModelFormatter[];
