@@ -1,31 +1,9 @@
-/**
- * Typing for the KineticJS JavaScript Library v.0.0.1
- * http://www.superdopey.nl/techblog/
- * Copyright 2012, Ralph de Ruijter
- * Licensed under the MIT or GPL Version 2 licenses.
- * Date: Oct 6 2012
- *
- * Copyright (C) 2012 by Ralph de Ruijter
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-module Kinetic {
+// Type definitions for KineticJS
+// Project: http://kineticjs.com/
+// Definitions by: Ralph de Ruijter <http://www.superdopey.nl/techblog/>, Basarat Ali Syed <http://www.github.com/basarat>
+// DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
+
+declare module Kinetic {
     class Node {
         constructor (config);
         clone(attrs): Node;
@@ -36,7 +14,7 @@ module Kinetic {
         getAttrs(): any;
         getDragBounds(): any;
         getDragConstraint(): any;
-        getDraggable(): bool; 
+        getDraggable(): boolean; 
         getId(): any;
         getLayer(): any;
         getLevel(): number;
@@ -55,9 +33,9 @@ module Kinetic {
         getY(): number;
         getZIndex(): number;
         hide(): void;
-        isDraggable(): bool;
-        isDragging(): bool;
-        isListening(): bool;
+        isDraggable(): boolean;
+        isDragging(): boolean;
+        isListening(): boolean;
         move(x: number, y: number): void;
         moveDown(): void;
         moveTo(newContainer: Container): void;
@@ -76,7 +54,7 @@ module Kinetic {
 
         setDragConstraint(constraint: string): void;
         setDraggable(draggable: string): void;
-        setListening(listening: bool): void;
+        setListening(listening: boolean): void;
         setOffset(x: number, y: number);
         setOpacity(opacity: any): void;
         setPosition(x: number, y: number): void;
@@ -139,7 +117,7 @@ module Kinetic {
         getClearBeforeDraw();
         getContext(): CanvasRenderingContext2D;
         remove();
-        setClearBeforeDraw(clearBeforeDraw: bool);
+        setClearBeforeDraw(clearBeforeDraw: boolean);
         toDataURL(config);
     }
 
@@ -161,7 +139,7 @@ module Kinetic {
         getSize(): any;
         getStroke();
         getStrokeWidth(): number;
-        intersects(point): bool;
+        intersects(point): boolean;
         setDrawFunc(drawFunc: () =>{ });
         setFill(fill:string);
         setLineJoin();
@@ -228,7 +206,7 @@ module Kinetic {
         getPoints();
         setDashArray(dashArray);
         setLineCap(lineCap: string);
-        setPoints(can: Array);
+        setPoints(can: any[]);
     }
 
     class Path extends Shape {
@@ -354,7 +332,7 @@ module Kinetic {
     }
 
     interface LayerConfig extends ObjectOptionsConfig {
-        clearBeforeDraw?: bool;
+        clearBeforeDraw?: boolean;
     }
 
     //shape configs class
@@ -443,8 +421,8 @@ module Kinetic {
     interface ObjectOptionsConfig {
         x?: number;
         y?: number;
-        visible?: bool;
-        listening?: bool;
+        visible?: boolean;
+        listening?: boolean;
         id?: string;
         name?: string;
         opacity?: any;
@@ -452,12 +430,10 @@ module Kinetic {
         rotation?: number;
         rotationDeg?: number;
         offset?: Vector2d;
-        draggable?: bool;
+        draggable?: boolean;
         dragConstraint?: string;
         dragBounds?: any;
     }
 
     
 }
-
-//declare var Kinetic: KineticNS.Kinetic;
