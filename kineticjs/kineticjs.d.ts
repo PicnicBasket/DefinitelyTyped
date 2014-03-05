@@ -10,6 +10,7 @@ declare module Kinetic {
     }
 
     interface INode {
+        cache(cacheConfig?: any): INode;
         clone(attrs): INode;
         destroy(): void;
         getAbsoluteOpacity(): number;
