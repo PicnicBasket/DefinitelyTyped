@@ -1,12 +1,17 @@
 // Type definitions for KineticJS
 // Project: http://kineticjs.com/
-// Definitions by: Ralph de Ruijter <http://www.superdopey.nl/techblog/>, Basarat Ali Syed <http://www.github.com/basarat>
+// Definitions by: Basarat Ali Syed <http://www.github.com/basarat>, Ralph de Ruijter <http://www.superdopey.nl/techblog/>
 // DefinitelyTyped: https://github.com/borisyankov/DefinitelyTyped
 
 declare module Kinetic {
-    class Node {
-        constructor (config);
-        clone(attrs): Node;
+
+    var Node: {
+        new (config: ObjectOptionsConfig);
+    }
+
+    interface INode {
+        clone(attrs): INode;
+        destroy(): void;
         getAbsoluteOpacity(): number;
         getAbsolutePosition(): Vector2d;
         getAbsoluteTransform(): any;
@@ -14,8 +19,7 @@ declare module Kinetic {
         getAttrs(): any;
         getDragBounds(): any;
         getDragConstraint(): any;
-        getDraggable(): boolean; 
-        getId(): any;
+        getDraggable(): boolean;
         getLayer(): any;
         getLevel(): number;
         getListening(): any;
@@ -26,11 +30,11 @@ declare module Kinetic {
         getPosition(): Vector2d;
         getRotation(): number;
         getRotationDeg(): number;
-        getScale(): number;
-        getStage(): Stage;
+        getScale(): Vector2d;
+        getScaleX(): number;
+        getScaleY(): number;
+        getStage(): IStage;
         getTransform(): any;
-        getX(): number;
-        getY(): number;
         getZIndex(): number;
         hide(): void;
         isDraggable(): boolean;
@@ -38,14 +42,19 @@ declare module Kinetic {
         isListening(): boolean;
         move(x: number, y: number): void;
         moveDown(): void;
-        moveTo(newContainer: Container): void;
+        moveTo(newContainer: IContainer): void;
         moveToBottom(): void;
         moveToTop(): void;
         moveUp(): void;
-        off(typesStr: string): void;
-        on(typesStr: string, handler: () =>{ }): void;
+        name(): string;
+        name(string): void;
         rotate(theta: number): void;
         rotateDeg(deg: number): void;
+
+        // Events 
+        on(typesStr: string, handler: (data) => any): void;
+        off(typesStr: string): void;
+        fire(typeStr: string, event?: any, bubble?: boolean);
 
         setAbsolutePosition(pos: Vector2d): void;
         setAttrs(config): void;
@@ -53,26 +62,57 @@ declare module Kinetic {
         setDragBounds(bounds): void;
 
         setDragConstraint(constraint: string): void;
-        setDraggable(draggable: string): void;
+        setDraggable(draggable: boolean): void;
         setListening(listening: boolean): void;
         setOffset(x: number, y: number);
         setOpacity(opacity: any): void;
-        setPosition(x: number, y: number): void;
+        setPosition(position: Vector2d): void;
         setRotation(theta: number): void;
         setRotationDeg(rotDeg: number): void;
-        setScale(x: number, y: number): void;
-        setX(x: number): void;
-        setY(y: number): void;
+        setScale(scale: Vector2d): void;
+        setSize(size: ISize): any;
         setZIndex(zIndex: number): void;
         show(): void;
         simulate(eventType: string): void;
         toDataURL(config: any): void;
         transitionTo(config: any): void;
+
+        // Width / Height
+        width(): number;
+        width(width: number): void;
+        getWidth(): any;
+        setWidth(width: number): void;
+        height(): number;
+        height(height: number): void;
+        getHeight(): any;
+        setHeight(height: number): any;
+
+        // id 
+        id(): string;
+        id(id: string): void;
+        getId(): string;
+        setId(id: string): void;
+
+        // Position
+        x(): number;
+        x(x: number): void;
+        y(): number;
+        y(y: number): void;
+        getX(): number;
+        setX(x: number): void;
+        getY(): number;
+        setY(y: number): void;
     }
 
-    class Container extends Node {
+    var Container: {
+        // TODO: Constructor / static
+    }
+
+    interface IContainer extends INode {
         add(child);
-        clone(attrs): Container;
+        clone(attrs): IContainer;
+        destroyChildren(): IContainer;
+        find(selector: string): any;
         get(selector);
         getChildren();
         getIntersections(point);
@@ -81,8 +121,13 @@ declare module Kinetic {
         removeChildren();
     }
 
-    class Stage extends Container {
-        add(layer: Layer);
+    var Stage: {
+        // TODO: Constructor / static
+        new (config: StageConfig): IStage;
+    }
+
+    interface IStage extends IContainer {
+        add(layer: ILayer);
         clear();
         draw();
         getContainer(): HTMLElement;
@@ -91,24 +136,27 @@ declare module Kinetic {
         getIntersection(pos);
         getMousePosition(evt?: Event);
         getSize();
-        getStage(): Stage;
+        getStage(): IStage;
         getTouchPosition(evt?: Event);
         getUserPosition(evt?: Event);
         getWidth(): number;
         load(JSON);
         reset();
         setHeight(height: number);
-        setSize(width: number, height: number);
         setWidth(width: number);
         toDataURL(config);
-        toImage(config, callback: () =>{ });
+        toImage(config, callback: () => any);
         toJSON();
     }
 
-    class Layer extends Container {
-        constructor (config?: LayerConfig);
-        afterDraw(handler: () =>{ });
-        beforeDraw(handler: () =>{ });
+    var Layer: {
+        // TODO: Constructor / static
+        new (config?: LayerConfig): ILayer;
+    }
+
+    interface ILayer extends IContainer {
+        afterDraw(handler: () => any);
+        beforeDraw(handler: () => any);
         clear();
         draw();
         drawBuffer();
@@ -125,34 +173,42 @@ declare module Kinetic {
 
     }
 
-    class Shape extends Node {
+    var Shape: {
+        // TODO: Constructor / static
+    }
+
+    interface IShape extends INode {
         applyLineJoin(): void;
         drawImage(): void;
         fill(): void;
-        fillText(text:string): void;
+        fillText(text: string): void;
         getCanvas(): Canvas;
         getContext(): any;
         getDrawFunc();
-        getFill():string;
+        getFill(): string;
         getLineJoin();
         getShadow();
         getSize(): any;
         getStroke();
         getStrokeWidth(): number;
         intersects(point): boolean;
-        setDrawFunc(drawFunc: () =>{ });
-        setFill(fill:string);
+        setDrawFunc(drawFunc: () => any);
+        setFill(fill: string);
         setLineJoin();
         setShadow(config);
-        setSize();
-        setStroke(stroke:string);
+        setSize(size: ISize);
+        setStroke(stroke: string);
         setStrokeWidth(strokeWidth: number);
         stroke();
-        strokeText(text:string);
+        strokeText(text: string);
     }
 
-    class Rect extends  Shape {
-        constructor (config: RectConfig);
+    var Rect: {
+        // TODO: Constructor / static
+        new (config: RectConfig): IRect;
+    }
+
+    interface IRect extends IShape {
         getCornerRadius(): number;
         getHeight(): number;
         getWidth(): number;
@@ -161,46 +217,67 @@ declare module Kinetic {
         setWidth(width: number);
     }
 
-    class Circle extends  Shape {
-        constructor (config: CircleConfig);
+    var Circle: {
+        // TODO: Constructor / static
+        new (config: CircleConfig): ICircle;
+
+    }
+
+    interface ICircle extends IShape {
         getRadius(): number;
         setRadius(radius: number);
     }
 
-    class Ellipse extends  Shape {
-        constructor (config: CircleConfig);
+    var Ellipse: {
+        new (config: CircleConfig): IEllipse;
+    }
+
+    interface IEllipse extends IShape {
         getRadius(): number;
         setRadius(radius: number);
     }
 
-    class Group extends Container {
-        constructor (config: ObjectOptionsConfig);
+    var Group: {
+        new (config?: ObjectOptionsConfig): IGroup;
     }
 
-    class Collection {
+    interface IGroup extends IContainer {
+    }
+
+    var Collection: {
+        // TODO: Constructor / static
+    }
+
+    interface ICollection {
         apply(method, val);
-        each(func: () =>{ });
+        each(func: () => any);
     }
 
-    class Image extends Shape {
-        constructor (config: ImageConfig);
+    var Image: {
+        new (config?: ImageConfig): IImage;
+    }
+
+    interface IImage extends IShape {
         applyFilter(config);
         clearImageBuffer();
-        createImageBuffer(callback: () =>{ });
+        createImageBuffer(callback: () => any);
         getCrop();
         getFilter();
         getHeight(): number;
-        getImage(): Image;
+        getImage(): IImage;
         getWidth(): number;
         setCrop(config: CropConfig);
         setFilter(config);
         setHeight(height: number);
-        setImage(image: Image);
+        setImage(image: IImage);
         setWidth(width: number);
     }
 
-    class Line extends Shape {
-        constructor (config: LineConfig);
+    var Line: {
+        new (config: LineConfig): ILine;
+    }
+
+    interface ILine extends IShape {
         getDashArray();
         getLineCap();
         getPoints();
@@ -209,30 +286,40 @@ declare module Kinetic {
         setPoints(can: any[]);
     }
 
-    class Path extends Shape {
-        constructor (config: PathConfig);
+    var Path: {
+        new (config: PathConfig): IPath;
+        parsePathData(data: string);
+    }
+    interface IPath extends IShape {
         getData(): string;
-        static parsePathData(data: string);
         setData(SVG: string);
     }
 
-    class Polygon extends Shape {
-        constructor (config: PolygonConfig);
+    var Polygon: {
+        new (config: PolygonConfig): IPolygon;
+    }
+
+    interface IPolygon extends IShape {
         getPoints();
         setPoints(points);
     }
 
-    class RegularPolygon extends Shape {
-        constructor (config: RegularPolygonConfig);
+    var RegularPolygon: {
+        new (config: RegularPolygonConfig): IRegularPolygon;
+    }
+
+    interface IRegularPolygon extends IShape {
         getRadius(): number;
         getSides(): number;
         setRadius(radius: number);
         setSides(sides: number);
     }
 
-    class Sprite extends Shape {
-        constructor (config: SpriteConfig);
-        afterFrame(index: number, func: () =>{ });
+    var Sprite: {
+        new (config: SpriteConfig): ISprite;
+    }
+    interface ISprite extends IShape {
+        afterFrame(index: number, func: () => any);
         getAnimation(): string;
         getAnimations();
         getIndex(): number;
@@ -243,8 +330,10 @@ declare module Kinetic {
         stop();
     }
 
-    class Star extends Shape {
-        constructor (config: StarConfig);
+    var Star: {
+        new (config: StarConfig): IStar;
+    }
+    interface IStar extends IShape {
         getInnerRadius(): number;
         getNumPoints(): number;
         getOuterRadius(): number;
@@ -253,8 +342,10 @@ declare module Kinetic {
         setOuterRadius(radius: number);
     }
 
-    class Text extends Shape {
-        constructor (config: TextConfig);
+    var Text: {
+        new (config: TextConfig): IText;
+    }
+    interface IText extends IShape {
         getAlign(): string;
         getBoxHeight(): number;
         getBoxWidth(): number;
@@ -287,8 +378,10 @@ declare module Kinetic {
         setWidth(width: number);
     }
 
-    class TextPath extends Shape {
-        contructor(config);
+    var TextPath: {
+        new (config): ITextPath;
+    }
+    interface ITextPath extends IShape {
         getFontFamily(): string;
         getFontSize(): number;
         getFontStyle(): string;
@@ -307,8 +400,18 @@ declare module Kinetic {
         setTextStrokeWidth(textStrokeWidth: number);
     }
 
-    class Transition {
-        constructor (node: Node, config);
+    var Transition: {
+        new (node: Node, config): ITransition;
+    }
+    interface ITransition {
+        start();
+        stop();
+    }
+
+    var Animation: {
+        // TODO: Constructor / static
+    }
+    interface IAnimation extends IContainer {
         start();
         stop();
     }
@@ -318,11 +421,6 @@ declare module Kinetic {
         y: number;
         width: number;
         height: number;
-    }
-
-    class Animation extends Container {
-        start();
-        stop();
     }
 
     interface StageConfig extends ObjectOptionsConfig {
@@ -402,7 +500,7 @@ declare module Kinetic {
     }
 
     interface CustomConfig extends DrawOptionsConfig, ObjectOptionsConfig {
-        drawFunc: () =>{ };
+        drawFunc: () => any;
     }
 
     interface DrawOptionsConfig {
@@ -433,7 +531,13 @@ declare module Kinetic {
         draggable?: boolean;
         dragConstraint?: string;
         dragBounds?: any;
+        dragBoundFunc?: (pos: Vector2d) => Vector2d;
+        width?: number;
+        height?: number;
     }
 
-    
+    interface ISize {
+        width: number;
+        height: number;
+    }
 }
