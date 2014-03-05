@@ -13,6 +13,9 @@ declare module Kinetic {
         cache(cacheConfig?: any): INode;
         clone(attrs): INode;
         destroy(): void;
+        draw(): INode;
+        drawBuffer();
+        drawScene();
         getAbsoluteOpacity(): number;
         getAbsolutePosition(): Vector2d;
         getAbsoluteTransform(): any;
@@ -130,7 +133,6 @@ declare module Kinetic {
     interface IStage extends IContainer {
         add(layer: ILayer);
         clear();
-        draw();
         getContainer(): HTMLElement;
         getDOM(): HTMLElement;
         getHeight(): number;
@@ -158,10 +160,7 @@ declare module Kinetic {
     interface ILayer extends IContainer {
         afterDraw(handler: () => any);
         beforeDraw(handler: () => any);
-        clear();
-        draw();
-        drawBuffer();
-        drawScene();
+        clear();        
         getCanvas(): Canvas;
         getClearBeforeDraw();
         getContext(): CanvasRenderingContext2D;
