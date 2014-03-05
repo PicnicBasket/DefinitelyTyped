@@ -74,6 +74,8 @@ declare module Kinetic {
         setRotation(theta: number): void;
         setRotationDeg(rotDeg: number): void;
         setScale(scale: Vector2d): void;
+        setScaleX(scale: number): void;
+        setScaleY(scale: number): void;
         setSize(size: ISize): any;
         setZIndex(zIndex: number): void;
         show(): void;
@@ -160,7 +162,7 @@ declare module Kinetic {
     interface ILayer extends IContainer {
         afterDraw(handler: () => any);
         beforeDraw(handler: () => any);
-        clear();        
+        clear();
         getCanvas(): Canvas;
         getClearBeforeDraw();
         getContext(): CanvasRenderingContext2D;
