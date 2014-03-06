@@ -28,7 +28,7 @@ declare module Kinetic {
         getLevel(): number;
         getListening(): any;
         getName(): string;
-        getOffset(): number;
+        getOffset(): Vector2d;
         getOpacity(): number;
         getParent(): any;
         getPosition(): Vector2d;
@@ -68,7 +68,7 @@ declare module Kinetic {
         setDragConstraint(constraint: string): void;
         setDraggable(draggable: boolean): void;
         setListening(listening: boolean): void;
-        setOffset(x: number, y: number);
+        setOffset(offset: Vector2d);
         setOpacity(opacity: any): void;
         setPosition(position: Vector2d): void;
         setRotation(theta: number): void;
@@ -120,7 +120,7 @@ declare module Kinetic {
         destroyChildren(): IContainer;
         find(selector: string): any;
         get(selector);
-        getChildren();
+        getChildren(): INode[];
         getIntersections(point);
         isAncestorOf(node);
         remove(child);
@@ -140,6 +140,7 @@ declare module Kinetic {
         getHeight(): number;
         getIntersection(pos);
         getMousePosition(evt?: Event);
+        getPointerPosition(): Vector2d;
         getSize();
         getStage(): IStage;
         getTouchPosition(evt?: Event);
