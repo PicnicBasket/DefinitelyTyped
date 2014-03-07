@@ -37,6 +37,7 @@ declare module Kinetic {
         getScale(): Vector2d;
         getScaleX(): number;
         getScaleY(): number;
+        getSize(): ISize;
         getStage(): IStage;
         getTransform(): any;
         getZIndex(): number;
@@ -141,7 +142,6 @@ declare module Kinetic {
         getIntersection(pos);
         getMousePosition(evt?: Event);
         getPointerPosition(): Vector2d;
-        getSize();
         getStage(): IStage;
         getTouchPosition(evt?: Event);
         getUserPosition(evt?: Event);
@@ -191,7 +191,6 @@ declare module Kinetic {
         getFill(): string;
         getLineJoin();
         getShadow();
-        getSize(): any;
         getStroke();
         getStrokeWidth(): number;
         intersects(point): boolean;
