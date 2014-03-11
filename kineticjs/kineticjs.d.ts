@@ -441,8 +441,8 @@ declare module Kinetic {
 
     //shape configs class
     interface RectConfig extends DrawOptionsConfig, ObjectOptionsConfig {
-        width: number;
-        height: number;
+        width?: number;
+        height?: number;
         cornerRadius?: number;
     }
 
@@ -459,8 +459,8 @@ declare module Kinetic {
 
     interface SpriteConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         image: any;
-        animations: any;
-        animation: any;
+        animations?: any;
+        animation?: any;
         frameRate?: number;
     }
 
