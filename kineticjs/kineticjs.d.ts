@@ -164,7 +164,7 @@ declare module Kinetic {
         afterDraw(handler: () => any);
         beforeDraw(handler: () => any);
         clear();
-        getCanvas(): Canvas;
+        getCanvas(): ICanvas;
         getClearBeforeDraw();
         getContext(): CanvasRenderingContext2D;
         remove();
@@ -172,8 +172,12 @@ declare module Kinetic {
         toDataURL(config);
     }
 
-    class Canvas {
+    interface ICanvas {
+        _canvas: HTMLCanvasElement;
 
+        height: number;
+        pixelRatio: number;
+        width: number;
     }
 
     var Shape: {
@@ -185,7 +189,7 @@ declare module Kinetic {
         drawImage(): void;
         fill(): void;
         fillText(text: string): void;
-        getCanvas(): Canvas;
+        getCanvas(): ICanvas;
         getContext(): any;
         getDrawFunc();
         getFill(): string;
