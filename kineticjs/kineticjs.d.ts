@@ -175,8 +175,10 @@ declare module Kinetic {
     interface ICanvas {
         _canvas: HTMLCanvasElement;
 
+        getPixelRatio(): number;
+
         height: number;
-        pixelRatio: number;
+        setPixelRatio(pixelRatio: number): any;
         width: number;
     }
 
