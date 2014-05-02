@@ -7,6 +7,30 @@
   "installed": {
     "angularjs/angular.d.ts": {
       "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "chai/chai.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "colors/colors.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "createjs/createjs.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "easeljs/easeljs.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "createjs-lib/createjs-lib.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "soundjs/soundjs.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "fabricjs/fabricjs.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "kineticjs/kineticjs.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
     }
   }
 }

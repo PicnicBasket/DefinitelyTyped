@@ -6,16 +6,16 @@
 declare module Kinetic {
 
     var Node: {
-        new (config: ObjectOptionsConfig);
+        new (config: ObjectOptionsConfig): INode;
     }
 
     interface INode {
         cache(cacheConfig?: any): INode;
-        clone(attrs): INode;
+        clone(attrs: any): INode;
         destroy(): void;
         draw(): INode;
-        drawBuffer();
-        drawScene();
+        drawBuffer(): any;
+        drawScene(): any;
         getAbsoluteOpacity(): number;
         getAbsolutePosition(): Vector2d;
         getAbsoluteTransform(): any;
@@ -52,24 +52,24 @@ declare module Kinetic {
         moveToTop(): void;
         moveUp(): void;
         name(): string;
-        name(string): void;
+        name(name: string): void;
         rotate(theta: number): void;
         rotateDeg(deg: number): void;
 
         // Events 
-        on(typesStr: string, handler: (data) => any): void;
+        on(typesStr: string, handler: (data: any) => any): void;
         off(typesStr: string): void;
-        fire(typeStr: string, event?: any, bubble?: boolean);
+        fire(typeStr: string, event?: any, bubble?: boolean): any;
 
         setAbsolutePosition(pos: Vector2d): void;
-        setAttrs(config): void;
-        setDefaultAttrs(config): void;
-        setDragBounds(bounds): void;
+        setAttrs(config: any): void;
+        setDefaultAttrs(config: any): void;
+        setDragBounds(bounds: any): void;
 
         setDragConstraint(constraint: string): void;
         setDraggable(draggable: boolean): void;
         setListening(listening: boolean): void;
-        setOffset(offset: Vector2d);
+        setOffset(offset: Vector2d): any;
         setOpacity(opacity: any): void;
         setPosition(position: Vector2d): void;
         setRotation(theta: number): void;
@@ -112,64 +112,62 @@ declare module Kinetic {
     }
 
     var Container: {
-        // TODO: Constructor / static
+        new (config: any): IContainer;
     }
 
     interface IContainer extends INode {
-        add(child);
-        clone(attrs): IContainer;
+        add(child: INode): any;
+        clone(attrs: any): IContainer;
         destroyChildren(): IContainer;
         find(selector: string): any;
-        get(selector);
+        get(selector: any): any;
         getChildren(): INode[];
-        getIntersections(point);
-        isAncestorOf(node);
-        remove(child);
-        removeChildren();
+        getIntersections(point: any): any;
+        isAncestorOf(node: any): any;
+        remove(child: any): any;
+        removeChildren(): any;
     }
 
     var Stage: {
-        // TODO: Constructor / static
         new (config: StageConfig): IStage;
     }
 
     interface IStage extends IContainer {
-        add(layer: ILayer);
-        clear();
+        add(layer: ILayer): any;
+        clear(): any;
         getContainer(): HTMLElement;
         getDOM(): HTMLElement;
         getHeight(): number;
-        getIntersection(pos);
-        getMousePosition(evt?: Event);
+        getIntersection(pos: any): any;
+        getMousePosition(evt?: Event): any;
         getPointerPosition(): Vector2d;
         getStage(): IStage;
-        getTouchPosition(evt?: Event);
-        getUserPosition(evt?: Event);
+        getTouchPosition(evt?: Event): any;
+        getUserPosition(evt?: Event): any;
         getWidth(): number;
-        load(JSON);
-        reset();
-        setHeight(height: number);
-        setWidth(width: number);
-        toDataURL(config);
-        toImage(config, callback: () => any);
-        toJSON();
+        load(JSON: any): any;
+        reset(): any;
+        setHeight(height: number): any;
+        setWidth(width: number): any;
+        toDataURL(config: any): any;
+        toImage(config: any, callback: () => any): any;
+        toJSON(): any;
     }
 
     var Layer: {
-        // TODO: Constructor / static
         new (config?: LayerConfig): ILayer;
     }
 
     interface ILayer extends IContainer {
-        afterDraw(handler: () => any);
-        beforeDraw(handler: () => any);
-        clear();
+        afterDraw(handler: () => any): any;
+        beforeDraw(handler: () => any): any;
+        clear(): any;
         getCanvas(): ICanvas;
-        getClearBeforeDraw();
+        getClearBeforeDraw(): any;
         getContext(): CanvasRenderingContext2D;
-        remove();
-        setClearBeforeDraw(clearBeforeDraw: boolean);
-        toDataURL(config);
+        remove(): any;
+        setClearBeforeDraw(clearBeforeDraw: boolean): any;
+        toDataURL(config: any): any;
     }
 
     interface ICanvas {
@@ -183,7 +181,7 @@ declare module Kinetic {
     }
 
     var Shape: {
-        // TODO: Constructor / static
+        new (config: any): IShape;
     }
 
     interface IShape extends INode {
@@ -193,26 +191,25 @@ declare module Kinetic {
         fillText(text: string): void;
         getCanvas(): ICanvas;
         getContext(): any;
-        getDrawFunc();
+        getDrawFunc(): any;
         getFill(): string;
-        getLineJoin();
-        getShadow();
-        getStroke();
+        getLineJoin(): any;
+        getShadow(): any;
+        getStroke(): any;
         getStrokeWidth(): number;
-        intersects(point): boolean;
-        setDrawFunc(drawFunc: () => any);
-        setFill(fill: string);
-        setLineJoin();
-        setShadow(config);
-        setSize(size: ISize);
-        setStroke(stroke: string);
-        setStrokeWidth(strokeWidth: number);
-        stroke();
-        strokeText(text: string);
+        intersects(point: any): boolean;
+        setDrawFunc(drawFunc: () => any): any;
+        setFill(fill: string): any;
+        setLineJoin(): any;
+        setShadow(config: any): any;
+        setSize(size: ISize): any;
+        setStroke(stroke: string): any;
+        setStrokeWidth(strokeWidth: number): any;
+        stroke(): any;
+        strokeText(text: string): any;
     }
 
     var Rect: {
-        // TODO: Constructor / static
         new (config: RectConfig): IRect;
     }
 
@@ -220,20 +217,19 @@ declare module Kinetic {
         getCornerRadius(): number;
         getHeight(): number;
         getWidth(): number;
-        setCornerRadius(radius: number);
-        setHeight(height: number);
-        setWidth(width: number);
+        setCornerRadius(radius: number): any;
+        setHeight(height: number): any;
+        setWidth(width: number): any;
     }
 
     var Circle: {
-        // TODO: Constructor / static
         new (config: CircleConfig): ICircle;
 
     }
 
     interface ICircle extends IShape {
         getRadius(): number;
-        setRadius(radius: number);
+        setRadius(radius: number): any;
     }
 
     var Ellipse: {
@@ -242,7 +238,7 @@ declare module Kinetic {
 
     interface IEllipse extends IShape {
         getRadius(): number;
-        setRadius(radius: number);
+        setRadius(radius: number): any;
     }
 
     var Group: {
@@ -253,12 +249,12 @@ declare module Kinetic {
     }
 
     var Collection: {
-        // TODO: Constructor / static
+        new (): ICollection;
     }
 
     interface ICollection {
-        apply(method, val);
-        each(func: () => any);
+        apply(method: Function, val: any): any;
+        each(func: () => any): any;
     }
 
     var Image: {
@@ -266,19 +262,19 @@ declare module Kinetic {
     }
 
     interface IImage extends IShape {
-        applyFilter(config);
-        clearImageBuffer();
-        createImageBuffer(callback: () => any);
-        getCrop();
-        getFilter();
+        applyFilter(config: any): any;
+        clearImageBuffer(): any;
+        createImageBuffer(callback: () => any): any;
+        getCrop(): any;
+        getFilter(): any;
         getHeight(): number;
         getImage(): IImage;
         getWidth(): number;
-        setCrop(config: CropConfig);
-        setFilter(config);
-        setHeight(height: number);
-        setImage(image: IImage);
-        setWidth(width: number);
+        setCrop(config: CropConfig): any;
+        setFilter(config: any): any;
+        setHeight(height: number): any;
+        setImage(image: IImage): any;
+        setWidth(width: number): any;
     }
 
     var Line: {
@@ -286,21 +282,21 @@ declare module Kinetic {
     }
 
     interface ILine extends IShape {
-        getDashArray();
-        getLineCap();
-        getPoints();
-        setDashArray(dashArray);
-        setLineCap(lineCap: string);
-        setPoints(can: any[]);
+        getDashArray(): any;
+        getLineCap(): any;
+        getPoints(): any;
+        setDashArray(dashArray: any): any;
+        setLineCap(lineCap: string): any;
+        setPoints(can: any[]): any;
     }
 
     var Path: {
         new (config: PathConfig): IPath;
-        parsePathData(data: string);
+        parsePathData(data: string): any;
     }
     interface IPath extends IShape {
         getData(): string;
-        setData(SVG: string);
+        setData(SVG: string): any;
     }
 
     var Polygon: {
@@ -308,8 +304,8 @@ declare module Kinetic {
     }
 
     interface IPolygon extends IShape {
-        getPoints();
-        setPoints(points);
+        getPoints(): any;
+        setPoints(points: any): any;
     }
 
     var RegularPolygon: {
@@ -319,23 +315,23 @@ declare module Kinetic {
     interface IRegularPolygon extends IShape {
         getRadius(): number;
         getSides(): number;
-        setRadius(radius: number);
-        setSides(sides: number);
+        setRadius(radius: number): any;
+        setSides(sides: number): any;
     }
 
     var Sprite: {
         new (config: SpriteConfig): ISprite;
     }
     interface ISprite extends IShape {
-        afterFrame(index: number, func: () => any);
+        afterFrame(index: number, func: () => any): any;
         getAnimation(): string;
-        getAnimations();
+        getAnimations(): any;
         getIndex(): number;
-        setAnimation(anim: string);
-        setAnimations(animations);
-        setIndex(index: number);
-        start();
-        stop();
+        setAnimation(anim: string): any;
+        setAnimations(animations: any): any;
+        setIndex(index: number): any;
+        start(): any;
+        stop(): any;
     }
 
     var Star: {
@@ -345,9 +341,9 @@ declare module Kinetic {
         getInnerRadius(): number;
         getNumPoints(): number;
         getOuterRadius(): number;
-        setInnerRadius(radius: number);
-        setNumPoints(points: number);
-        setOuterRadius(radius: number);
+        setInnerRadius(radius: number): any;
+        setNumPoints(points: number): any;
+        setOuterRadius(radius: number): any;
     }
 
     var Text: {
@@ -371,23 +367,23 @@ declare module Kinetic {
         getTextStrokeWidth(): number;
         getTextWidth(): number;
         getWidth(): number;
-        setAlign(align: string);
-        setFontFamily(fontFamily: string);
-        setFontSize(fontSize: number);
-        setFontStroke(textStroke: any);
-        setFontStyle(fontStyle: string);
-        setHeight(height: number);
-        setLineHeight(lineHeight: number);
-        setPadding(padding: number);
-        setShadow(config);
-        setText(text: string);
-        setTextFill(textFill: any);
-        setTextStrokeWidth(textStrokeWidth: number);
-        setWidth(width: number);
+        setAlign(align: string): any;
+        setFontFamily(fontFamily: string): any;
+        setFontSize(fontSize: number): any;
+        setFontStroke(textStroke: any): any;
+        setFontStyle(fontStyle: string): any;
+        setHeight(height: number): any;
+        setLineHeight(lineHeight: number): any;
+        setPadding(padding: number): any;
+        setShadow(config: any): any;
+        setText(text: string): any;
+        setTextFill(textFill: any): any;
+        setTextStrokeWidth(textStrokeWidth: number): any;
+        setWidth(width: number): any;
     }
 
     var TextPath: {
-        new (config): ITextPath;
+        new (config: any): ITextPath;
     }
     interface ITextPath extends IShape {
         getFontFamily(): string;
@@ -399,29 +395,29 @@ declare module Kinetic {
         getTextStroke(): any;
         getTextStrokeWidth(): number;
         getTextWidth(): number;
-        setFontFamily(fontFamily: string);
-        setFontSize(fontSize: number);
-        setFontStroke(textStroke: any);
-        setFontStyle(fontStyle: string);
-        setText(text: string);
-        setTextFill(textFill: any);
-        setTextStrokeWidth(textStrokeWidth: number);
+        setFontFamily(fontFamily: string): any;
+        setFontSize(fontSize: number): any;
+        setFontStroke(textStroke: any): any;
+        setFontStyle(fontStyle: string): any;
+        setText(text: string): any;
+        setTextFill(textFill: any): any;
+        setTextStrokeWidth(textStrokeWidth: number): any;
     }
 
     var Transition: {
-        new (node: Node, config): ITransition;
+        new (node: Node, config: any): ITransition;
     }
     interface ITransition {
-        start();
-        stop();
+        start(): any;
+        stop(): any;
     }
 
     var Animation: {
-        // TODO: Constructor / static
+        new (...args: any[]): IAnimation;
     }
     interface IAnimation extends IContainer {
-        start();
-        stop();
+        start(): any;
+        stop(): any;
     }
 
     interface CropConfig {
