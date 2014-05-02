@@ -4,5 +4,9 @@
   "ref": "master",
   "path": ".",
   "bundle": "typings/tsd.d.ts",
-  "installed": {}
+  "installed": {
+    "angularjs/angular.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    }
+  }
 }
