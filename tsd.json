@@ -37,6 +37,9 @@
     },
     "jqueryui/jqueryui.d.ts": {
       "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "underscore/underscore.d.ts": {
+      "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
     }
   }
 }
