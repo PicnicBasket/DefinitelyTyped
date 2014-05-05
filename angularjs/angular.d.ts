@@ -33,7 +33,7 @@ declare module ng {
         bootstrap(element: JQuery, modules?: any[]): auto.IInjectorService;
         bootstrap(element: Element, modules?: any[]): auto.IInjectorService;
         bootstrap(element: Document, modules?: any[]): auto.IInjectorService;
-        copy(source: any, destination?: any): any;
+        copy<T>(source: T, destination?: any): T;
         element: IAugmentedJQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
