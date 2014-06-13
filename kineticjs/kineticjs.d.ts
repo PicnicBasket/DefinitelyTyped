@@ -136,6 +136,7 @@ declare module Kinetic {
         add(layer: ILayer): any;
         clear(): any;
         getContainer(): HTMLElement;
+        getContent(): HTMLElement;
         getDOM(): HTMLElement;
         getHeight(): number;
         getIntersection(pos: any): any;
