@@ -482,7 +482,7 @@ declare module Kinetic {
     interface LineConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         points: any;
         lineCap?: string;
-        dashArray?: any;
+        dash?: number[];
     }
 
     interface PolygonConfig extends DrawOptionsConfig, ObjectOptionsConfig {
