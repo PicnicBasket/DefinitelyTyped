@@ -40,6 +40,9 @@
     },
     "underscore/underscore.d.ts": {
       "commit": "b208dde588cfe991dd1ec7e0d389e2b8023cff35"
+    },
+    "pdf/pdf.d.ts": {
+      "commit": "33bf97ba1e33fcb11f74f191f3426d16e779fdbd"
     }
   }
 }
