@@ -12,3 +12,4 @@
 /// <reference path="../../../jqueryui/jqueryui.d.ts" />
 /// <reference path="../../underscore/underscore.d.ts" />
 /// <reference path="../pdf/pdf.d.ts" />
+/// <reference path="../filesystem/filesystem.d.ts" />

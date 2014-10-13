@@ -43,6 +43,9 @@
     },
     "pdf/pdf.d.ts": {
       "commit": "33bf97ba1e33fcb11f74f191f3426d16e779fdbd"
+    },
+    "filesystem/filesystem.d.ts": {
+      "commit": "bba33bcb0b363ae41db8517a09d1a4d07828616b"
     }
   }
 }
