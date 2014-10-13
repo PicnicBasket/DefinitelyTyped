@@ -46,6 +46,9 @@
     },
     "filesystem/filesystem.d.ts": {
       "commit": "bba33bcb0b363ae41db8517a09d1a4d07828616b"
+    },
+    "filewriter/filewriter.d.ts": {
+      "commit": "bba33bcb0b363ae41db8517a09d1a4d07828616b"
     }
   }
 }
