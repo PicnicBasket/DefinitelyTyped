@@ -52,6 +52,9 @@
     },
     "swiper/swiper.d.ts": {
       "commit": "383a3bc8e654a77eb8bd07d9feb7208735dcb6fa"
+    },
+    "react/react.d.ts": {
+      "commit": "5109e1269d6ab8e8e73b1a5e85d8ceb836d3099f"
     }
   }
 }
